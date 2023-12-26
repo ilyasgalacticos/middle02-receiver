@@ -1,5 +1,6 @@
 package kz.bitlab.rabbit.middle02rabbitreceiver.config;
 
+import kz.bitlab.rabbit.middle02rabbitreceiver.dto.Message;
 import kz.bitlab.rabbit.middle02rabbitreceiver.dto.OrderDTO;
 import org.springframework.amqp.support.converter.DefaultClassMapper;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -24,6 +25,7 @@ public class RabbitConfig {
         DefaultClassMapper classMapper = new DefaultClassMapper();
         Map<String, Class<?>> idClassMapping = new HashMap<>();
         idClassMapping.put("kz.bitlab.rabbit.middle02rabbitreceiver.dto.OrderDTO", OrderDTO.class);
+        idClassMapping.put("kz.bitlab.rabbit.middle02rabbitreceiver.dto.Message", Message.class);
         classMapper.setIdClassMapping(idClassMapping);
         return classMapper;
     }

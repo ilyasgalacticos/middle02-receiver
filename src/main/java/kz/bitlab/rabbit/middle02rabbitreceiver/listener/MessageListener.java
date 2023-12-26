@@ -1,5 +1,6 @@
 package kz.bitlab.rabbit.middle02rabbitreceiver.listener;
 
+import kz.bitlab.rabbit.middle02rabbitreceiver.dto.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.rabbit.annotation.Exchange;
@@ -20,5 +21,13 @@ public class MessageListener {
         log.info("Received message: {}", message);
     }
 
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = "department_messages_queue"),
+            exchange = @Exchange(value = "${mq.message.topic.exchange}", type = ExchangeTypes.TOPIC),
+            key = "department.#"
+    ))
+    public void receiveMessageFromDepartment(Message message){
+        log.info(message.getTitle(), message.getContent());
+    }
 
 }
